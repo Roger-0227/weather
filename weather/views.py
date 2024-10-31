@@ -7,7 +7,7 @@ from config.settings import TIME_ZONE
 
 def index(request):
     api_key = "8a8be3ee5f2c1b0bb49fff97d94202bf"
-    weather = Weather(api_key).get_data_by_location()
+    weather = Weather(api_key).get_weather_data()
     taiwan_timezone = pytz.timezone(TIME_ZONE)
     reference_time = weather.reference_time(timeformat="iso")
 
@@ -43,5 +43,4 @@ def index(request):
         "sunrise": sunrise,
         "sunset": sunset,
     }
-    breakpoint()
     return render(request, "pages/index.html", content)
