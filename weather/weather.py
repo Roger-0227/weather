@@ -35,7 +35,13 @@ class Weather:
         weather = mgr.weather_at_place(self._location + ",TW").weather
         return weather
 
-    def get_airpollution_data(self):
+    def get_air_quality(self):
+        location = self.get_owm.city_id_registry().ids_for(
+            self._location, country="TW", matching="exact"
+        )[0]
         mgr = self.get_owm.airpollution_manager()
-        airpollution = mgr.air_quality_at_place(self._location + ",TW")
-        return airpollution
+        try:
+            air_quality = mgr.air_quality_at_coords(location[-2], location[-1])
+        except:
+            print("Error")
+        return air_quality

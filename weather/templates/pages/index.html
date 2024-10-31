@@ -1,7 +1,52 @@
-<h1>hello world</h1>
+{% extends "base.html" %}{% block content %} {% load i18n %}
+<section>
+  <p class="mb-3">現在時間：{% now "Y-m-d H:i" %}</p>
+  <p class="mb-3">資料取得時間：{{time}}</p>
+  <div class="stats shadow">
+    <div class="stat grid grid-cols-2 gap-2">
+      <div class="stat-figure text-primary w-8">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+          <path
+            d="M160 64c-26.5 0-48 21.5-48 48l0 164.5c0 17.3-7.1 31.9-15.3 42.5C86.2 332.6 80 349.5 80 368c0 44.2 35.8 80 80 80s80-35.8 80-80c0-18.5-6.2-35.4-16.7-48.9c-8.2-10.6-15.3-25.2-15.3-42.5L208 112c0-26.5-21.5-48-48-48zM48 112C48 50.2 98.1 0 160 0s112 50.1 112 112l0 164.4c0 .1 .1 .3 .2 .6c.2 .6 .8 1.6 1.7 2.8c18.9 24.4 30.1 55 30.1 88.1c0 79.5-64.5 144-144 144S16 447.5 16 368c0-33.2 11.2-63.8 30.1-88.1c.9-1.2 1.5-2.2 1.7-2.8c.1-.3 .2-.5 .2-.6L48 112zM208 368c0 26.5-21.5 48-48 48s-48-21.5-48-48c0-20.9 13.4-38.7 32-45.3L144 144c0-8.8 7.2-16 16-16s16 7.2 16 16l0 178.7c18.6 6.6 32 24.4 32 45.3z"
+          />
+        </svg>
+      </div>
+      <div class="stat-title text-2xl">Taipei</div>
+      <div class="stat-value text-primary col-span-2">
+        溫度：{{temp_c.temp}}℃
+      </div>
+      <div class="text-gray-400 text-sm">最高溫度：{{temp_c.temp_max}}℃</div>
+      <div class="text-gray-400 text-sm">最低溫度：{{temp_c.temp_min}}℃</div>
+      <div class="text-gray-400 text-sm">體感溫度：{{temp_c.feels_like}}℃</div>
+      <div class="text-gray-400 text-sm">濕度：{{humidity}}%</div>
+    </div>
 
-<p>資料取得時間：{{time|date:"Y-m-d h:m:s"}}</p>
+    <div class="stat grid grid-cols-2 gap-2">
+      <div class="stat-figure text-secondary w-12 m-2">
+        {% if status == "Rain" %}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path
+            d="M96 320c-53 0-96-43-96-96c0-42.5 27.6-78.6 65.9-91.2C64.7 126.1 64 119.1 64 112C64 50.1 114.1 0 176 0c43.1 0 80.5 24.3 99.2 60c14.7-17.1 36.5-28 60.8-28c44.2 0 80 35.8 80 80c0 5.5-.6 10.8-1.6 16c.5 0 1.1 0 1.6 0c53 0 96 43 96 96s-43 96-96 96L96 320zM81.5 353.9c12.2 5.2 17.8 19.3 12.6 31.5l-48 112c-5.2 12.2-19.3 17.8-31.5 12.6S-3.3 490.7 1.9 478.5l48-112c5.2-12.2 19.3-17.8 31.5-12.6zm120 0c12.2 5.2 17.8 19.3 12.6 31.5l-48 112c-5.2 12.2-19.3 17.8-31.5 12.6s-17.8-19.3-12.6-31.5l48-112c5.2-12.2 19.3-17.8 31.5-12.6zm244.6 31.5l-48 112c-5.2 12.2-19.3 17.8-31.5 12.6s-17.8-19.3-12.6-31.5l48-112c5.2-12.2 19.3-17.8 31.5-12.6s17.8 19.3 12.6 31.5zM313.5 353.9c12.2 5.2 17.8 19.3 12.6 31.5l-48 112c-5.2 12.2-19.3 17.8-31.5 12.6s-17.8-19.3-12.6-31.5l48-112c5.2-12.2 19.3-17.8 31.5-12.6z"
+          />
+        </svg>
+        {% endif %}
+      </div>
+      <div class="stat-title">天氣</div>
+      <div class="stat-value text-secondary col-span-2">{{status}}</div>
+      <div class="text-gray-400 text-sm col-span-2">{{detailed_status}}</div>
+      <div class="text-gray-400 text-sm">最近一小時降雨量：{{rain_1}}</div>
+      <div class="text-gray-400 text-sm">最近三小時降雨量：{{rain_3}}</div>
+    </div>
 
+    <div class="stat">
+      <div class="stat-figure text-secondary"></div>
+      <div class="stat-value">濕度：{{humidity}}%</div>
+      <div class="stat-title">日出時間：{{sunrise}}</div>
+      <div class="stat-title">日落時間：{{sunset}}</div>
+    </div>
+  </div>
+</section>
+{% comment %}
 <p>溫度：{{temp_f.temp}}℉</p>
 <p>最高溫度：{{temp_f.temp_max}}℉</p>
 <p>最低溫度：{{temp_f.temp_min}}℉</p>
@@ -11,20 +56,24 @@
 <p>最高溫度：{{temp_c.temp_max}}℃</p>
 <p>最低溫度：{{temp_c.temp_min}}℃</p>
 <p>體感溫度：{{temp_c.feels_like}}℃</p>
-<p>{{wind_miles_hour.speed|floatformat:2}}m/h</p>
-<p>{{wind_miles_hour.deg}}m/h</p>
-<p>{{wind_miles_hour.gust|floatformat:2}}m/h</p>
-<p>{{wind_knots.speed|floatformat:2}}</p>
-<p>{{wind_knots.deg}}</p>
-<p>{{wind_knots.gust|floatformat:2}}</p>
-<p>蒲氏風級：{{wind_beaufort.speed|floatformat:2}}</p>
-<p>蒲氏風級：{{wind_beaufort.deg}}</p>
-<p>蒲氏風級：{{wind_beaufort.gust|floatformat:2}}</p>
-<p>{{rain_1}}</p>
-<p>{{rain_3}}</p>
-<p>{{press_metric}}</p>
-<p>{{press_imperial}}</p>
-<p>{{visibility_metric}}</p>
-<p>{{visibility_imperial}}</p>
-<p>{{sunrise|date:"Y-m-d h:m:s"}}</p>
-<p>{{sunset|date:"Y-m-d h:m:s"}}</p>
+<p>濕度：{{humidity}}%</p>
+
+<p>風速：{{wind_miles_hour.speed|floatformat:2}}meter/sec</p>
+<p>風向：{{wind_miles_hour.deg}}deg</p>
+<p>陣風：{{wind_miles_hour.gust|floatformat:2}}meter/sec</p>
+<p>風速：{{wind_knots.speed|floatformat:2}}meter/sec</p>
+<p>風向：{{wind_knots.deg}}deg</p>
+<p>陣風：{{wind_knots.gust|floatformat:2}}meter/sec</p>
+<p>蒲氏風級：{{wind_beaufort.speed|floatformat:2}}meter/sec</p>
+<p>蒲氏風級：{{wind_beaufort.deg}}deg</p>
+<p>蒲氏風級：{{wind_beaufort.gust|floatformat:2}}meter/sec</p>
+
+<p>最近一小時降雨量：{{rain_1}}</p>
+<p>最近三小時降雨量：{{rain_3}}</p>
+<p>大氣壓力：{{press_metric}}KPa</p>
+<p>大氣壓力：{{press_imperial}}inHg</p>
+<p>可見度：{{visibility_metric}}</p>
+<p>可見度：{{visibility_imperial}}</p>
+<p>日出時間：{{sunrise}}</p>
+<p>日落時間：{{sunset}}</p>
+{% endcomment %} {% endblock %}
