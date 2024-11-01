@@ -6,7 +6,7 @@ from config.settings import TIME_ZONE
 
 
 def index(request):
-    api_key = "8a8be3ee5f2c1b0bb49fff97d94202bf"
+    api_key = ""
     weather = Weather(api_key).get_weather_data()
     air_quality = Weather(api_key).get_air_quality()
     taiwan_timezone = pytz.timezone(TIME_ZONE)
