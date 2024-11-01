@@ -3,10 +3,11 @@ from .weather import Weather
 from dateutil import parser
 import pytz
 from config.settings import TIME_ZONE
+import os
 
 
 def index(request):
-    api_key = ""
+    api_key = os.getenv("api_key")
     weather = Weather(api_key).get_weather_data()
     air_quality = Weather(api_key).get_air_quality()
     taiwan_timezone = pytz.timezone(TIME_ZONE)
