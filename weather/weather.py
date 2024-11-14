@@ -1,16 +1,13 @@
 from pyowm.owm import OWM
 from requests import Timeout
-from pyowm.owm import OWM
-from dateutil import parser
-import pytz
-import json
+
 from config.settings import TIME_ZONE
 
 
 class Weather:
-    def __init__(self, owm_api_key=None):
+    def __init__(self, owm_api_key=None, location=TIME_ZONE.split("/")[1]):
         self._owm_api_key = owm_api_key
-        self._location = TIME_ZONE.split("/")[1]
+        self._location = location
         self._owm = None
 
     @property
@@ -42,6 +39,6 @@ class Weather:
         mgr = self.get_owm.airpollution_manager()
         try:
             air_quality = mgr.air_quality_at_coords(location[-2], location[-1])
-        except:
-            print("Error")
+        except Exception as e:
+            print(f"Error: {e}")
         return air_quality

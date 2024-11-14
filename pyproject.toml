@@ -13,6 +13,7 @@ pyowm = "^3.3.0"
 pytz = "^2024.2"
 python-dateutil = "^2.9.0.post0"
 django-tailwind = {extras = ["reload"], version = "^3.8.0"}
+python-dotenv = "^1.0.1"
 
 
 [build-system]

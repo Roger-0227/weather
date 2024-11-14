@@ -1,14 +1,23 @@
-from django.shortcuts import render
-from .weather import Weather
-from dateutil import parser
-import pytz
-from config.settings import TIME_ZONE
 import os
+
+import pytz
+from dateutil import parser
+from django.shortcuts import render
+
+from config.settings import TIME_ZONE
+
+from .weather import Weather
+
+
+def home(request):
+    return render(request, "pages/home.html")
 
 
 def index(request):
+    location = request.GET.get("location")
     api_key = os.getenv("api_key")
-    weather = Weather(api_key).get_weather_data()
+    breakpoint()
+    weather = Weather(api_key, location).get_weather_data()
     air_quality = Weather(api_key).get_air_quality()
     taiwan_timezone = pytz.timezone(TIME_ZONE)
     reference_time = weather.reference_time(timeformat="iso")
@@ -61,5 +70,7 @@ def index(request):
         "visibility_imperial": visibility_imperial,
         "sunrise": sunrise,
         "sunset": sunset,
+        "air_quality": air_quality,
     }
+    breakpoint()
     return render(request, "pages/index.html", content)
