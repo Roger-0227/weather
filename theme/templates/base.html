@@ -6,6 +6,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- <script type="module" src="../static/script/app.js"></script> -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
     <script
       src="https://kit.fontawesome.com/9cb8fe1d61.js"
       crossorigin="anonymous"
@@ -15,8 +20,11 @@
 
   <body class="bg-gray-50 font-serif leading-normal tracking-normal">
     <div class="container mx-auto">
+      <div class="flex justify-center items-center relative top-10">
+        {% include "pages/home.html" %}
+      </div>
       <section class="flex items-center justify-center h-screen">
-        {% block home %} {% endblock %} {% block content %} {% endblock %}
+        {% block content %} {% endblock %}
       </section>
     </div>
   </body>

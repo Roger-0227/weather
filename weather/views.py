@@ -16,7 +16,6 @@ def home(request):
 def index(request):
     location = request.GET.get("location")
     api_key = os.getenv("api_key")
-    breakpoint()
     weather = Weather(api_key, location).get_weather_data()
     air_quality = Weather(api_key).get_air_quality()
     taiwan_timezone = pytz.timezone(TIME_ZONE)
@@ -53,6 +52,7 @@ def index(request):
     )
 
     content = {
+        "location": location,
         "time": time,
         "status": status,
         "detailed_status": detailed_status,
@@ -72,5 +72,4 @@ def index(request):
         "sunset": sunset,
         "air_quality": air_quality,
     }
-    breakpoint()
     return render(request, "pages/index.html", content)
